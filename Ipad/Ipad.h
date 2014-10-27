@@ -1,52 +1,85 @@
 #ifndef IPAD_H
 #define IPAD_H
-
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
 #include "Data.h"
+#include "Tablet.h"
+#include <string>
+#include <iostream>
+#include <vector>
+using namespace std;
 
 
-class Ipad
+/*neste .h devo cumprir os seguintes requisitos
+ * 
+ * 1 pelo menos 4 atributos --> ok em todos 
+ * 2 pelo menos 4 funções menbros sem incluir get e set--ok todos
+ * 
+ * requisitos:
+ * 
+ * 1 todos os atributos devem ser inicializados --> ok for all
+ * 2 tres construtores --> Ok e funcionar
+ * 		construtor de copia ok em todos
+ * 		construtos com parametros default --> OK em todos
+ * 3 deve ter um atributo string --> ok em todos
+ * 4 um atributo static --> ok em toos
+ * 5 um atrubuto const static -- em tablet e por coidencia/
+ * 6 dois metodos constantes (não pode ser get)
+ * 7 um array -->ok
+ * 8 uma função inline --> ok
+ * 9 metodo com passagem por referencia --> ok
+ * metodo static - deve ser chamado no main --> not
+ * 
+ * 
+ * segunda parte:
+ * 
+ * 1 contruir duas funções friend com sobrecarga de operador ok
+ * 2 usar alocação dinamica de memoria ok
+ * 3 usar a biblioteca vector ok
+ * 4 criar mais duas classes para relacionar ok
+ * 
+ * terceira parte:
+ * 
+ * 1 esta classe sera subclasse da classe tablet.ok 
+ * 2 esta chamará o construtor da superclasse.ok
+ *  
+ */
+ 
+ 
+class Ipad :public Tablet//perguntar sobre a sobrecarga ou pesquisar;
 {
+	friend ostream& operator<<(ostream &output, Ipad &i);
 private:
-	int const verDevice;
-
-	int coordenadaX;
-
-	int coordenadaY;
-	
-	static const tamanhoTela;
-
-	static int tela[][];
-
-	static String senha;
-
-	Data dataAtual;
-
+	static int quantidade;
+	const string fabricaApple;  
+	const string modelo;
+	string senha;
+	const static bool Device;
 
 public:
-	Ipad(int coordenadaX=0, int coordenadaY=0, String senha=" ", int dia=1, int mes=1,int ano=2014, int verDevice=1, int tamanhoTela=20);//verDevice=1 1 diz que é Ipad e 0 diz que não é.
-
-	Ipad(Ipad &copia);
-
-	void setData();
-
-	void setCoordenadas();
-
-	Data getData() const;
-
-	void menu();
-
-	void mostrarDetalhes() const;
+	//costrutor para a classe base;
+	Ipad(const int dia,const int mes, const int ano,int nivelBateria,float memoriaInterna,const float resolucaoCamera,string& nomeDoDevice,bool conexaoComInternet,int coordenadax,int coordenaday,int TamanhoDaTela,const string &modelo,const string &senha,string &fabricaApple)
+	Ipad(const string &modelo=" ",const string &senha=" ");
+	Ipad(Tablet &ipad); 
+	~Ipad();
 	
-	void mostrarTela() const;
+	Ipad operator=(Ipad &i);
 	
-	void static mudarSenha();
+	//funções sets 	
+	void SetFabricaApple(const string &FabricaApple);
+	void SetModelo(const string& modelo);
+	void SetSenha(const string& senha);
 
-	inline void verDevice() const {(Ipad::verDevice()==1)?:std::cout<<"é um Ipad":std::cout<<"não é um Ipad";}; //pesquisar ternario
+	//funções gets
+	const string& GetFabricaApple() const;
+	const string& GetModelo() const;
+	const string& GetSenha() const;
+	
+	//metodos funcionais
+	void abrirLoja() const;
+	void abrirAgenda() const;
+	void mudarSenha() const;
+	void VerDevice() const;
+	static void menu() const;
 
 };
-#endif
+
+#endif // IPAD_H
