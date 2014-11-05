@@ -1,0 +1,40 @@
+# Project: Projeto1
+# Makefile created by Dev-C++ 5.6.3
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = main.o Device.o Eletronico.o Tablet.o Galaxy.o
+LINKOBJ  = main.o Device.o Eletronico.o Tablet.o Galaxy.o
+LIBS     = -L"C:/Program Files/Dev-Cpp/MinGW32/lib" -L"C:/Program Files/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc -g3
+INCS     = -I"C:/Program Files/Dev-Cpp/MinGW32/include" -I"C:/Program Files/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Program Files/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include"
+CXXINCS  = -I"C:/Program Files/Dev-Cpp/MinGW32/include" -I"C:/Program Files/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Program Files/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include" -I"C:/Program Files/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include/c++"
+BIN      = Ipad.exe
+CXXFLAGS = $(CXXINCS) -g3
+CFLAGS   = $(INCS) -g3
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+Device.o: Device.cpp
+	$(CPP) -c Device.cpp -o Device.o $(CXXFLAGS)
+
+Eletronico.o: Eletronico.cpp
+	$(CPP) -c Eletronico.cpp -o Eletronico.o $(CXXFLAGS)
+
+Tablet.o: Tablet.cpp
+	$(CPP) -c Tablet.cpp -o Tablet.o $(CXXFLAGS)
+
+Galaxy.o: Galaxy.cpp
+	$(CPP) -c Galaxy.cpp -o Galaxy.o $(CXXFLAGS)
