@@ -1,51 +1,102 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Usuario.h"
 
+Usuario::contadeemail=true;
 
-Usuario::Usuario(String nome=" ", Ipad ipad())
+Usuario::Usuario(Usuario &usuario)
 {
-	this->nome=nome;
-	this->ipad=&ipad;
+	this->nome=usuario.nome;
+	this->idade=usuario.idade;
+	this->ipad=usuario.ipad;
 }
 
-void Usuario::setIpad()
+osteram& operator<<(ostream &output,Usuario &usuario)//friend sobrecrga de operador <<
 {
-	Ipad::Ipad ipad();
-	
-	this->ipad=&ipad 
+		output=<<"\nNome: "<< usuario.nome <<"\nIdade: "<<usuario.idade;
+		return output;
 }
 
-void Usuario::setNome()
+Usuario::Usuario(string &nome,int idade)
 {
-	std::cout<<"digite seu nome: "std::endl;
-	std::cin>>this->nome;
+	Tablet *ptr
+	SetIdade(idade)
+	SetNome(nome);
+	ptr = new Ipad;// alocação dinamica
+	SetIpad(*ptr);
+	delete ptr;
 }
 
-String Usuario::getNome() const
+Usuario::Usuario(const int idade)
 {
-	return this->nome;
+	Tablet *ptr
+	std::cout<<"digite seu nome"std::endl;
+	std::cin>>nome;
+	this->SetNome(nome);
+	ptr = new Ipad;// alocação dinamica   ok
+	this->SetIpad(*ptr);
+	delete ptr;
 }
 
-void Usuario::usarIpad()
+Usuario::~Usuario()
 {
-	this->ipad->menu();
+	delete ipad;
 }
 
-void menuUsuario(Usuario &usuario)
+Usuario Usuario::operator=(usuario &u)
 {
-	string nome;
-	Ipad ipad;
-	std::cout<<"digite seu nome";
-	std::cin>> nome;
-	
-	usuario->nome=nome;
-	usuario->ipad();
-	
-	usuario->usarIpad()
-	
+	this->nome=u.nome;
+	this->idade= u.idade;
+	this->ipad=u.ipad;//operador sobrecarregado na classe vector
 }
+
+void Usuario::SetIdade(int idade) 
+{
+	if (idade < 0 )
+		this->idade = 0;
+	else
+		this->idade = idade;
+}
+
+void Usuario::SetIpad(const Tablet &ipad) 
+{
+	this->ipad.push_back (ipad);// usar o push back ok
+}
+
+void Usuario::SetNome(const string &nome)
+{
+	this->nome = nome;
+}
+
+int Usuario::GetIdade() const 
+{
+	return idade;
+}
+
+const Usuario::Tablet& GetIpad() const 
+{
+	return ipad;
+}
+
+const Usuario::string& GetNome() const 
+{
+	return nome;
+}
+
+void Usuario::addIpad()
+{
+	Tablet *ipad = new Ipad; // alocação dinamica de memoria 
+	Usuario::SetIpad(*ipad);
+	delete ipad;
+}
+
+void Usuario::mostrarIpads()
+{
+	for (vector<Tablet>::itarator it=this->ipad.begin();it!= this->ipad.end();it++)
+		cout<<*it<<"\n";//operador sobrecarregado
+}
+
+void Usuario::usarTablet(const int i)
+{
+	Ipad::this->ipad[i].menu;
+}
+//void deletarIpad();    adotar uma abordagem simples primeiramente 
+

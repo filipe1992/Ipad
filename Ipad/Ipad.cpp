@@ -1,160 +1,177 @@
-#include <string>
-#include <vector>
-#include <list>
-#include <iostream>
-#include <assert.h>
-
 #include "Ipad.h"
 
-int const Ipad::tamanhoMax=50;
-int Ipad::tela[tamanhoTela][tamanhoTela]={0};
-String Ipad::senha;
+Ipad::quantidade=0;
+Ipad::device = true;
 
-Ipad::Ipad(int coordenadaX=0, int coordenadaY=0, String senha" ", int dia=1, int mes=1, int ano=2014, int verDevice=1, int tamanhoTela=50)
+friend ostream& operator<<(ostream &output, Ipad &i)
 {
-	this->coordenadaX=coordenaX;
-	this->coordenadaY=coordenaY;
-	this->dataAtual(dia,mes,ano);
-	this->senha=senha;
-	this->verDevice=verdevice;
+	output = "\nNome: "<< i.nome
+		<<"\nData de fabricação: "<< i.dataDeFabricacao
+		<<"\nMemoria interna: "<<i.memoriaInterna
+		<<"\ncoordenadadas da tela: X= "<<i.coordenadax<<" Y= "<<i.coordenaday
+		<<"\nconecção com a internet "<<(i.conexaoComInternet == true):<<"sim"<<:"não" //verificar
+		<<"\ntamanho da tela: "<<i.tamanhoDaTela
+		<<"\nfabrica Apple: "<<i.fabricaApple
+		<<"\nmodelo: "<<i.modelo
+		<<"\nquantidade: "<<i.quantidade
+		<<"É um Ipad: "(i.device==true):<<"sim":<<"não"endl;
+	return output;
+}
+
+Ipad::Ipad(,float memoriaInterna,bool conexaoComInternet,int coordenadax,int coordenaday,int TamanhoDaTela,const string &modelo,const string &senha,string &fabricante)
+:Tablet(memoriaInterna,conexaoComInternet,icoordenadax,coordenaday,TamanhoDaTela)
+{
+	SetFabricaApple(fabricaApple);
+	SetModelo(modelo);
+	SetSenha(senha);
+
+	++quantidade;
+}
+
+
+Ipad::Ipad(const string &modelo,const string &senha,string &fabricaApple) :Tablet();
+{
+	SetFabricaApple(fabricaApple);
+	SetModelo(modelo);
+	SetSenha(senha);
+	this->Device = true;
+	++quantidade;
 	
 }
 
-void static Ipad::mudarSenha()
+Ipad:: Ipad(Tablet &ipad):Tablet(ipad)//fazer no tablet
 {
-	String senha;
-	
-	if (this->senha==" "){
-		std::cout<<"digite a senha: "std::endl;
-		std::cin>>this->senha;
-	}else if (this->senha!=" "){
-				do{
-					std::cout<<"digite a senha anterior: "std::endl;
-					std::cin>>senha;
-					if (this->senha!=senha)
-						std::cout<<"senha incorreta"std::endl;
-				}while(this->senha!=senha);
-				
-				this->senha=senha;
-				
-				std::cout<<"senha modificada !!!!"std::endl;
-	}
-} 
-
-Ipad::Ipad(Ipad &copia)
-{
-	this->coordenadaX=copia.coordenadaX;
-	this->coordenadaY=copia.coordenadaY;
-	this->dataAtual=copia.dataAtual;
-	this->senha=copia.senha;//nÃ£o Ã© necessÃ¡rio
-	this->tela=copia.tela;//nao Ã© necessÃ¡rio
+	Ipad::quantidade++;
+	this->fabricaApple=ipad.fabricaApple;  
+	this->modelo=ipad.modelo;
+	this->senha=ipad.senha;
 }
 
-void Ipad::setData()
+Ipad::~Ipad()
 {
-	std::cout<<"digite o dia :"
-	std::cin>>dia;
-	
-	std::cout<<"digite o mes :"
-	std::cin>>mes;
-	
-	std::cout<<"digite o ano :"
-	std::cin>>ano;
-	
-	Ipad::dataAtual(dia,mes,ano);	
 }
 
-void Ipad::setCoordenadas()
+Ipad::Ipad operator=(Ipad &i)
 {
-	int x,y;
-	do{
-		std::cout<<"digite a X de na tela? :"stdendl;
-		std::cin>>x;
-	}while((x<0)||(x>this->tamanhoTela));
-	
-	do{
-		std::cout<<"digite a Y de na tela? :"stdendl;
-		std::cin>>y;
-	}while((y<0)||(y>this->tamanhoTela));
-	
-	Ipad::tela[this->coordenadaX][this->coordenadaY]=0;
-	
-	Ipad::tela[x][y]=1;
-	this->coordenadaX=x;
-	this->coordenadaY=y;
+	this->dataDeFabricacao=i.dataDeFabricacao;
+	this->Tela=i.Tela;
+	this->coordenadax=i.coordenadax;
+	this->coordenaday=i.coordenaday;
+	this->nivelBateria=i.nivelBateria;
+	this->memoriaInterna=i.memoriaInterna;
+	this->resolucaoCamera=i.resolucaoCamera;
+	this->nomeDoDevice=i.nomeDoDevice;
+	this->conexaoComInternet=i.conexaoComInternet;
+	this->contatos=i.contatos;
+	this->tamanhoDaTela=i.tamanhoDaTela;
+	this->fabricaApple;
+	this->modelo;
+	this->senha;
+	return *this;
 }
 
-Data Ipad::getData() const
+void Ipad::SetFabricaApple(const string &FabricaApple)
 {
-	return this->dataAtual;
+	this->FabricaApple=FabricaApple;
 }
 
-void Ipad::menu()
+void Ipad::SetModelo(const string& modelo) 
 {
-	int escolha;
-	Ipad copia;
-	
-	do{
-		std::cout<<"#############_MENU Ipad_#############\n"std::endl;
-		std::cout<<"1 - inserir data :"std::endl;
-		std::cout<<"2 - ver data :"std::endl;
-		std::cout<<"3 - mudar posiÃ§Ã£o da tela :"std::endl;
-		std::cout<<"4 - mudar senha do(s) device(s)):"std::endl;
-		std::cout<<"5 - mostrar detalhes :"std::endl;
-		std::cout<<"6 - criar copia :"std::endl;
-		std::cout<<"7 - ver posiÃ§Ã£o na tela :"std::endl;
-		std::cout<<"0 - para sair :"std::endl;
-		std:::cin>> escolha;
-		switch(escolha){
-			case 1:
-				Ipad::setData();
-				break;
-			case 2:
-				std::cout<<"dia :"<<Ipad::getData()
-				"std::endl; // melhorar
-				Ipad::getData()
-				break;
-			case 3:
-				Ipad::setCoordenadas();
-				break;
-			case 4:
-				Ipad::mudarSenha();
-				break;
-			case 5:
-				Ipad::mostrarDetalhes();
-				break;
-			case 6:
-				Ipad::copia(this);
-				do{
-					std::cout<<"deseja usar a copia?:[1=s/0=n]\n"
-					cin>>escolha ;
-				}while((escolha!=1)||(escolha!=0));
-				if (escolha)
-					Ipad::copia->menu();
-				break;
-			case 7:
-				Ipad::mostrarTela();
-				break;
-		}
+	this->modelo = modelo;
+}
+void Ipad::SetSenha(const string& senha) 
+{
+	this->senha = senha;
+}
+
+// GETs
+const Ipad::string& GetFabricaApple() const
+{
+	return this->FabricaApple;
+}
+const Ipad::string& GetModelo() const 
+{
+	return modelo;
+}
+const Ipad::string& GetSenha() const 
+{
+	return senha;
+}
+
+//funções
+void Ipad::abrirLoja()
+{
+	cout<<"###### APP STORE ONDE TUDO È PAGO ######\n\n Bem vindo !!!!!"endln;  //verificar sintaxe
 		
-		if ((escolha<0)||(escolha>7))
-			std::cout<<"digite um valido"std::endl;
-	}while(escolha!=0);
 }
 
-void Ipad::mostrarDetalhes() const
+void Ipad::mudarSenha()
 {
-	std::cout<<"a posiÃ§Ã£o do cursor Ã© "<< this->coordenadaX<<"e"<<this->coordenadaY<<" ou na tela :"std::endl;
-	Ipad::mostrarTela();
-	std::cout<<"na data de "<<Data::this->dataAtual.print() std::endl; //mostrar data (estudar)
-	
+	string *entrada = new string;
+	do{
+		cout<<"para mudar a senha digite a senha anterior: ";
+		cin>>*entrada;
+		if (entrada != this->senha)
+			cout<<"senha incorreta ";
+	}while (entrada != this->senha);
+	delete entrada;
+	entrada = new string;
+	cout<<"digite a nova senha"<<endl;
+	cin>>*entrada;
+	this->senha=*entrada;
+	delete entrada;
 }
 
-void Ipad::mostrartela() const
+void Ipad::VerDevice()
 {
-	for (i=0;i<tamanhoTela;i++){
-		for (j=0;i<this->tamanhoTela;j++)
-			cout<<this->tela[i][j]" "std::endl;
-		std::cout<<"\n"std::endl;
-	}
+	if (this->Device==true)
+		cout<<"este devicce é um Ipad";
+	else
+		cout<<"este device não é um ipad";
 }
+
+void Ipad::menu(Ipad *ipad)
+{
+		int esc;
+		do{
+			cout<<"funções de tablet[1=sim] ou Ipad[outro]";
+			cin>> esc;
+			if (esc==1)
+				Tablet::menu(ipad); //chamada de função base na sub-classe.
+			else if (esc == 2)
+			{
+				cout<<"1 - abrir loja\n2 - abrir agenda\n3 - mudar senha\n4 - verificar device ";
+				cin>>esc;
+				switch(esc)
+				{
+					case 1:
+						ipad->abrirAgenda();
+					break;
+					case 2:
+						ipad->abrirAgenda();
+					break;
+					case 3:
+						ipad->mudarSenha();
+					break;
+					case 4:
+						ipad->VerDevice();
+					break;
+				}
+			}
+		}while(esc <= 4 && esc > 0);
+		
+}
+
+void Ipad::mostrar(){
+		cout<<"\nNome: "<< this->nome
+		<<"\nData de fabricação: "<< this->dataDeFabricacao
+		<<"\nMemoria interna: "<<this->memoriaInterna
+		<<"\ncoordenadadas da tela: X= "<<this->coordenadax<<" Y= "<<i.coordenaday
+		<<"\nconecção com a internet "<<(this->conexaoComInternet == true):<<"sim"<<:"não" //verificar
+		<<"\ntamanho da tela: "<<this->tamanhoDaTela
+		<<"\nfabrica Apple: "<<this->fabricaApple
+		<<"\nmodelo: "<<this->modelo
+		<<"\nquantidade: "<<this->quantidade
+		<<"É um Ipad: "(i.device==true):<<"sim":<<"não"endl;
+}
+
